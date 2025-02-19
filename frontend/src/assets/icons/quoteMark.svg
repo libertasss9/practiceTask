@@ -1,0 +1,17 @@
+              <svg
+                version="1.0"
+                xmlns="http://www.w3.org/2000/svg"
+                width="36px"
+                height="36px"
+                viewBox="0 0 512.000000 512.000000"
+                preserveAspectRatio="xMidYMid meet"
+              >
+                <g
+                  transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                  fill="#7C6A46"
+                  stroke="none"
+                >
+                  <path d="M2920 3200 l0 -640 545 0 545 0 -365 730 -365 730 0 -640z" />
+                  <path d="M440 3200 l0 -640 545 0 545 0 -365 730 -365 730 0 -640z" />
+                </g>
+              </svg>

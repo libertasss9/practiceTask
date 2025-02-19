@@ -1,0 +1,133 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:regular,500,600,700,display=swap");
+@import url("https://fonts.googleapis.com/css?family=Dancing+Script:600,700,800display=swap");
+@import url("https://fonts.googleapis.com/css?family=Poppins:regular,500,display=swap");
+@import url("https://fonts.googleapis.com/css?family=Mulish:regular,500,600display=swap");
+@import url("https://fonts.googleapis.com/css?family=Inter:500display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@layer base {
+  html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .container__x-paddings {
+    @apply px-[20px] md:px-[70px] lg:px-[120px] xl:px-[140px];
+  }
+
+  .hero {
+    @apply h-[350px] max-h-[1050px] w-full md:h-[450px] lg:h-[550px] xl:h-[670px];
+  }
+
+  .transitions {
+    @apply transition delay-100 ease-in-out;
+  }
+
+  .btn {
+    @apply transitions rounded-md bg-secondary px-6 py-3 font-poppins text-[15px] font-medium text-white hover:bg-secondaryHover focus:bg-secondary lg:px-12 lg:py-4;
+  }
+
+  .grid-container {
+    @apply grid max-w-[1500px] grid-cols-2 items-center gap-2 bg-primary px-2 md:px-8 lg:grid-cols-3 xl:flex xl:max-h-[120px] xl:w-[85vw] xl:justify-evenly xl:bg-white;
+  }
+
+  .home__booking-item {
+    @apply flex h-[115px] w-[170px] items-center gap-4 p-2 pt-8 md:w-[200px] md:p-4 md:p-8 xl:justify-center;
+  }
+
+  .home__booking-inputs {
+    @apply flex flex-col items-start justify-center;
+  }
+
+  .booking__combobox {
+    @apply cursor-pointer focus:outline-none bg-primary text-start text-sm font-semibold text-darkGray60 xl:bg-white;
+  }
+
+  .booking__combobox-title {
+    @apply font-medium lg:text-lg;
+  }
+
+  .popup-overlay {
+    @apply fixed inset-0 z-10 flex items-center justify-center bg-black50 backdrop:blur-sm;
+  }
+
+  .popup-content {
+    @apply relative w-[90%] max-w-[800px] border-2 bg-primary p-5 shadow-lg md:p-10;
+  }
+
+  .popup-close {
+    @apply absolute right-2 top-2 cursor-pointer border-none bg-none text-[24px];
+  }
+
+  .icons {
+    @apply size-5 pt-1 md:size-7;
+  }
+
+  .facilities__icon {
+    @apply size-[25%] text-secondary;
+  }
+
+  .quote-mark {
+    @apply inline-block text-[1.5rem] text-secondary;
+  }
+
+  .contactUs__section {
+    @apply container__x-paddings mx-auto mb-12 flex h-full w-full flex-col items-center justify-center;
+  }
+
+  .contactUs__section-title {
+    @apply mb-3 mt-8 text-center font-raleway text-2xl font-medium md:text-3xl lg:mb-5 lg:mt-16 lg:text-5xl;
+  }
+
+  .contact__input-form {
+    @apply flex w-[45%] flex-col;
+  }
+
+  .contact__input-label {
+    @apply font-mulish text-[15px] lg:text-[20px];
+  }
+
+  .contact__input {
+    @apply border-[1px] border-solid border-darkGray20 p-3 font-mulish text-[14px] text-black50 focus:text-black focus:outline-darkGray60 lg:p-5;
+  }
+
+  .contact__btn-container {
+    @apply mx-auto max-w-[700px];
+  }
+
+  .contact__btn {
+    @apply transitions w-full bg-secondary p-3 pt-3 font-raleway font-bold text-white delay-100 hover:bg-secondaryHover focus:bg-secondary;
+  }
+
+  .footer__list-title {
+    @apply p-2 font-raleway font-bold md:text-xs lg:text-sm;
+  }
+
+  .footer__list {
+    @apply p-2;
+  }
+
+  .footer__list-item {
+    @apply flex items-center justify-center py-1 font-raleway text-xs font-bold md:justify-start lg:text-sm;
+  }
+  .footer__list-item a {
+    @apply transitions hover:underline;
+  }
+}
