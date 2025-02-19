@@ -1,0 +1,44 @@
+[
+    {
+      "date": "2023-03-02",
+      "review":
+        "The service at the Hotel Monteleone was exceptional. There was absolutely no issue that was not addressed timely and with satisfactory results. We were particulary impressed with how the hotel staff anticipated our needs (periodically coming by the Board Room to check with us). Numerous conference attendees commented on the quality of the food, the quality of the service and overall positive attitude toward the conference site. Particular noteworthy is the longevity of the staff and that sense of investment in the success of every event. I usually offer suggestions for improvements (part of being a marketing professor), but there is absolutely nothing that could be improved – you have set the bar very high.",
+      "reviewer_name": "Anthony Bruff",
+      "reviewer_image": "./src/assets/customer1.jpg"
+    },
+    {
+      "date": "2023-03-25",
+      "review":
+        "The service at the Hotel Monteleone was exceptional. There was absolutely no issue that was not addressed timely and with satisfactory results. We were particulary impressed with how the hotel staff anticipated our needs",
+      "reviewer_name": "Regina Gella",
+      "reviewer_image": "./src/assets/customer2.jpg"
+    },
+    {
+      "date": "2023-04-05",
+      "review":
+        "The service at the Hotel Monteleone was exceptional. There was absolutely no issue that was not addressed timely and with satisfactory results. We were particulary impressed with how the hotel staff anticipated our needs",
+      "reviewer_name": "Jamiyu Aliyu",
+      "reviewer_image": "./src/assets/customer3.jpg"
+    },
+    {
+      "date": "2023-03-02",
+      "review":
+        "The service at the Hotel Monteleone was exceptional. There was absolutely no issue that was not addressed timely and with satisfactory results. We were particulary impressed with how the hotel staff anticipated our needs (periodically coming by the Board Room to check with us). Numerous conference attendees commented on the quality of the food, the quality of the service and overall positive attitude toward the conference site. Particular noteworthy is the longevity of the staff and that sense of investment in the success of every event. I usually of",
+      "reviewer_name": "Anthony Bruff",
+      "reviewer_image": "./src/assets/customer1.jpg"
+    },
+    {
+      "date": "2023-03-25",
+      "review":
+        "The service at the Hotel Monteleone was exceptional. There was absolutely no issue that was not addressed timely and with satisfactory results. We were particulary impressed with how the hotel staff anticipated our needs (periodically coming by the Board Room to check with us). Numerous conference attendees commented on the quality of the food, the quality of the service and overall positive attitude toward the conference site. Particular noteworthy is the longevity of the staff and that sense of investment in the success of every event. I usually offer suggestions for improvements (part of being a marketing professor), but th.",
+      "reviewer_name": "Regina Gella",
+      "reviewer_image": "./src/assets/customer2.jpg"
+    },
+    {
+      "date": "2023-04-05",
+      "review":
+        "The service at the Hotel Monteleone was exceptional. There was absolutely no issue that was not addressed timely and with satisfactory results. We were particulary impressed with how the hotel staff anticipated our needs (periodically coming by the Board Room to check with us). Numerous conference attendees commented on the quality of the food, the quality of the service and overall positive attitude toward the conference site. Particular noteworthy is the longevity of the staff and that sense of investment in the success of every event. I usually offer suggestions for improvements (part of being a marketing professor), but there is absolutely nothing that coul",
+      "reviewer_name": "Jamiyu Aliyu",
+      "reviewer_image": "./src/assets/customer3.jpg"
+    }
+  ]
