@@ -6,7 +6,10 @@ import InputForm from "../components/InputForm";
 
 const Rooms = () => {
   const aboutSection = useRef(null);
+  const loadMoreRef = useRef(null);
   const [rooms, setRooms] = useState([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
   const [filteredRooms, setFilteredRooms] = useState([]);
   const [location, setCity] = useState("");
   const [numPersons, setNumPersons] = useState(1);
@@ -15,26 +18,45 @@ const Rooms = () => {
   const errorMessageRef = useRef(null);
 
   useEffect(() => {
-    fetch("/api/v1/rooms")
-      .then((res) => res.json())
-      .then((response) => {
-        if (response.data && Array.isArray(response.data.rooms)) {
-          const sortedRooms = response.data.rooms.sort((a, b) => {
-            return a.availability === true && b.availability === false ? -1 : 1;
-          });
-          setRooms(sortedRooms);
-          setFilteredRooms(sortedRooms);
-        } else {
-          console.error("Unexpected data structure:", response);
-          setRooms([]);
-          setFilteredRooms([]);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching rooms:", error);
-        setErrorMessage("Failed to fetch rooms. Please try again later.");
-      });
+    fetchRooms();
   }, []);
+
+  const fetchRooms = async (pageNum = 1) => {
+    try {
+      const response = await fetch(`/api/v1/rooms?page=${pageNum}&limit=10`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+
+      if (data && data.data && Array.isArray(data.data.rooms)) {
+        setRooms((prevRooms) => [...prevRooms, ...data.data.rooms]);
+        setFilteredRooms((prevRooms) => [...prevRooms, ...data.data.rooms]);
+        setHasMore(data.data.rooms.length === 10);
+      } else {
+        setHasMore(false);
+      }
+    } catch (error) {
+      setErrorMessage("Failed to fetch rooms.");
+    }
+  };
+
+  useEffect(() => {
+    if (!loadMoreRef.current || !hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((prevPage) => prevPage + 1);
+          fetchRooms(page + 1);
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    observer.observe(loadMoreRef.current);
+    return () => observer.disconnect();
+  }, [hasMore, page]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -79,7 +101,7 @@ const Rooms = () => {
   const fetchFilteredRooms = async (location, roomType, numPersons) => {
     try {
       const response = await fetch(
-        `/api/v1/rooms/filter/f?location=${location}&type=${roomType}&person=${numPersons}`,
+        `/api/v1/rooms/filter/f?location=${location}&type=${roomType}&person=${numPersons}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -109,7 +131,7 @@ const Rooms = () => {
     const filteredRooms = await fetchFilteredRooms(
       location,
       roomType,
-      numPersons,
+      numPersons
     );
 
     const sortedRooms = filteredRooms.sort((a, b) => {
@@ -197,6 +219,18 @@ const Rooms = () => {
           />
         ))}
       </section>
+      {hasMore && (
+        <button
+          className="btn py-2 px-12"
+          onClick={() => {
+            setPage((prev) => prev + 1);
+            fetchRooms(page + 1);
+          }}
+        >
+          Load More
+        </button>
+      )}
+      <div ref={loadMoreRef}></div>
     </div>
   );
 };
