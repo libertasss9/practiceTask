@@ -112,54 +112,56 @@ const HomeBooking = ({
   const handleHomeBooking = async (e) => {
     e.preventDefault();
 
+    setError("");
+
     const checkInDate = new Date(formData.checkIn);
     const checkOutDate = new Date(formData.checkOut);
 
     if (checkInDate.getTime() < tomorrow.setHours(0, 0, 0, 0)) {
-      setError("Check in date should be at least tomorrow.");
+      setError("Check-in date should be at least tomorrow.");
       return;
     }
 
-    const dayAfterCheckIn = new Date(checkInDate);
-    dayAfterCheckIn.setDate(checkInDate.getDate() + 1);
-
-    if (checkOutDate.getTime() < dayAfterCheckIn.setHours(0, 0, 0, 0)) {
-      setError("Check out date should be at least one day after check in.");
+    if (checkOutDate.getTime() <= checkInDate.getTime()) {
+      setError("Check-out date should be after the check-in date.");
       return;
     }
 
-    const oneYearFromNow = new Date();
-    oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+    try {
+      const roomsResponse = await fetch(`/api/v1/rooms`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
 
-    if (
-      checkInDate.getTime() > oneYearFromNow.getTime() ||
-      checkOutDate.getTime() > oneYearFromNow.getTime()
-    ) {
-      setError("You can't book a room for a date more than a year from now!");
-      return;
-    }
-
-    const hasErrors = homeBookingData.some((input) => {
-      const fieldName = toCamelCase(input.title);
-      const isRequiredField = input.combobox || input.isDate;
-
-      if (
-        (isRequiredField && !formData[fieldName]) ||
-        (input.combobox && formData[fieldName] === input.combobox[0])
-      ) {
-        setError(`Please fill out the ${input.title} field.`);
-        return true;
+      if (!roomsResponse.ok) {
+        throw new Error("Failed to fetch rooms.");
       }
 
-      return false;
-    });
+      const response = await roomsResponse.json();
+      const rooms = response.data?.rooms || [];
 
-    if (hasErrors) {
-      return;
+      if (!Array.isArray(rooms) || rooms.length === 0) {
+        setError("No available rooms found.");
+        return;
+      }
+
+      const matchingRoom = rooms.find(
+        (room) =>
+          room.location.toLowerCase() === formData.location.toLowerCase() &&
+          room.roomType.toLowerCase() === formData.roomType.toLowerCase() &&
+          room.person === parseInt(formData.persons, 10) &&
+          room.availability === true
+      );
+
+      if (!matchingRoom) {
+        setError("No matching room found for the selected criteria.");
+        return;
+      }
+
+      setShowPopup(true);
+    } catch (error) {
+      setError("An error occurred while searching for a room.");
     }
-
-    setError("");
-    setShowPopup(true);
   };
 
   const handlePopupSubmit = async () => {
@@ -195,7 +197,6 @@ const HomeBooking = ({
 
         const rooms = response.data?.rooms;
 
-
         if (!Array.isArray(rooms)) {
           throw new Error("Invalid rooms data format.");
         }
@@ -209,6 +210,7 @@ const HomeBooking = ({
         );
 
         if (!matchingRoom) {
+          setError("Check in date should be at least tomorrow.");
           throw new Error("No matching room found.");
         }
 
