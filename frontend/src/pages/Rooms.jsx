@@ -79,7 +79,7 @@ const Rooms = () => {
   const fetchFilteredRooms = async (location, roomType, numPersons) => {
     try {
       const response = await fetch(
-        `/api/v1/rooms/filter/f?location=${location}&type=${roomType}&person=${numPersons}`,
+        `/api/v1/rooms?person=${numPersons}&location=${location}&roomType=${roomType}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -109,7 +109,7 @@ const Rooms = () => {
     const filteredRooms = await fetchFilteredRooms(
       location,
       roomType,
-      numPersons,
+      numPersons
     );
 
     const sortedRooms = filteredRooms.sort((a, b) => {
