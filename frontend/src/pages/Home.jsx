@@ -106,43 +106,21 @@ const Home = () => {
     Aos.init({ duration: 700 });
   }, []);
 
-  const fetchAllRooms = async () => {
-    let allRooms = [];
-    let page = 1;
-    let hasMore = true;
-  
-    try {
-      while (hasMore) {
-        const response = await fetch(`/api/v1/rooms?page=${page}`);
-        const data = await response.json();
-  
-        if (data.data && Array.isArray(data.data.rooms)) {
-          allRooms = [...allRooms, ...data.data.rooms];
-  
-          hasMore = data.data.rooms.length > 0;
-          page++;
+  useEffect(() => {
+    fetch("/api/v1/rooms")
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.data && Array.isArray(response.data.rooms)) {
+          setRooms(response.data.rooms);
         } else {
-          hasMore = false;
+          console.error("Unexpected data structure:", response);
+          setRooms([]);
         }
-      }
-      return allRooms;
-    } catch (error) {
-      console.error("Error fetching rooms:", error);
-      return [];
-    }
-  };
-  
-  useEffect(() => {
-    const loadRooms = async () => {
-      const allRooms = await fetchAllRooms();
-      setRooms(allRooms);
-    };
-  
-    loadRooms();
-  }, []);
-  
+      })
+      .catch((error) => {
+        console.error("Error fetching rooms:", error);
+      });
 
-  useEffect(() => {
     fetch("/api/v1/testimonies")
       .then((res) => res.json())
       .then((response) => {
